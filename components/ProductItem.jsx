@@ -4,9 +4,9 @@ import Link from 'next/link';
 
 export default function ProductItem({ product }) {
   return (
-    <div className="card">
+    <div className="card productCard">
       <div className=" relative w-full h-1/2">
-        <Link href={`/product/${product.name}`}>
+        <Link href={`/product/${product.slug}`}>
           <Image
             fill
             src={product.image}

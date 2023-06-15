@@ -5,7 +5,7 @@ const rubik = Rubik({ subsets: ['latin'], variable: '--font-rubik' });
 
 export default function App({ Component, pageProps }) {
   return (
-    <main className={`${rubik.variable} font-sans`}>
+    <main className={`${rubik.variable} font-sans  `}>
       <Component {...pageProps} />
     </main>
   );
