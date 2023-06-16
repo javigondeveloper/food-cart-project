@@ -1,9 +1,9 @@
+import { useContext } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
 import { Store } from '@/utils/Store';
 import data from '@/utils/data';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useContext } from 'react';
 
 export default function ProductScreen() {
   const { state, dispatch } = useContext(Store);
