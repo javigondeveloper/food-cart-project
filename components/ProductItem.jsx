@@ -1,17 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function ProductItem({ product }) {
   return (
     <div className="card productCard">
-      <div className=" relative w-full h-1/2">
+      <div className=" relative  w-full h-1/2">
         <Link href={`/product/${product.slug}`}>
-          <Image
-            fill
+          <img
             src={product.image}
             alt={product.name}
-            className="rounded shadow object-contain"
+            className=" rounded-lg  object-contain m-auto"
           />
         </Link>
       </div>

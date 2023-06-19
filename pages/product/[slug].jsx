@@ -36,9 +36,13 @@ export default function ProductScreen() {
           back to products
         </Link>
       </div>
-      <div className="grid h-min p-4 md:p-8 md:grid-cols-4 md:gap-3 bg-sky-50 ">
-        <div className="    md:col-span-2    rounded shadow relative  ">
-          <img className="m-auto" src={product.image} alt={product.name}></img>
+      <div className="grid  min-h-full p-4 md:p-8 md:grid-cols-4 md:gap-3 md:h-min bg-sky-50 ">
+        <div className="    md:col-span-2      relative  ">
+          <img
+            className="m-auto rounded-lg "
+            src={product.image}
+            alt={product.name}
+          ></img>
         </div>
         <div className=" font-medium text-center md:text-left md:ml-4">
           <ul>
@@ -49,6 +53,10 @@ export default function ProductScreen() {
             <li>Brand: {product.brand}</li>
             <li>
               {product.rating} of {product.reviews} reviews
+            </li>
+            <h3 className="font-bold">Description:</h3>
+            <li className="max-h-full overflow-scroll md:max-h-32">
+              {product.description}
             </li>
           </ul>
         </div>
