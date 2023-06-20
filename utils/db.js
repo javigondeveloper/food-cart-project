@@ -7,7 +7,6 @@ async function connect() {
     console.log('already connected');
     return;
   }
-  //   console.log('mongoose.connection', mongoose.connection[0]);
   if (mongoose.connections.length > 0) {
     connection.isConnected = mongoose.connections[0].readyState;
     if (connection.isConnected === 1) {

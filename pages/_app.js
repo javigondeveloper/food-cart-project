@@ -1,15 +1,21 @@
 import '@/styles/globals.css';
 import { StoreProvider } from '@/utils/Store';
+import { SessionProvider } from 'next-auth/react';
 import { Rubik } from 'next/font/google';
 
 const rubik = Rubik({ subsets: ['latin'], variable: '--font-rubik' });
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   return (
-    <StoreProvider>
-      <main className={`${rubik.variable} font-sans`}>
-        <Component {...pageProps} />
-      </main>
-    </StoreProvider>
+    <SessionProvider session={session}>
+      <StoreProvider>
+        <main className={`${rubik.variable} font-sans`}>
+          <Component {...pageProps} />
+        </main>
+      </StoreProvider>
+    </SessionProvider>
   );
 }
