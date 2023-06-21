@@ -18,12 +18,12 @@ a {
   box-sizing: border-box;
 }
 .card {
-  @apply mb-5 flex flex-col  rounded-lg border border-gray-200  shadow-md py-4;
+  @apply mb-5 flex flex-col  rounded-lg border border-gray-200  shadow-md p-4;
 }
 
 .productCard {
   width: 21.25rem;
-  height: 28rem;
+  height: 32rem;
   @apply bg-sky-50;
 }
 

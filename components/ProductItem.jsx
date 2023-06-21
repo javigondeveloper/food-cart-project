@@ -3,12 +3,12 @@ import Link from 'next/link';
 export default function ProductItem({ product }) {
   return (
     <div className="card productCard">
-      <div className=" relative  w-full h-1/2">
-        <Link href={`/product/${product.slug}`}>
+      <div className=" relative  w-full h-2/3 flex justify-center items-center bg-white">
+        <Link href={`/product/${product.slug}`} className=" h-fit">
           <img
             src={product.image}
             alt={product.name}
-            className=" rounded-lg  object-contain m-auto"
+            className=" rounded-lg  object-cover m-auto"
           />
         </Link>
       </div>
