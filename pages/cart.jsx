@@ -5,12 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
+import { useSession } from 'next-auth/react';
 
-function CartScreen() {
-  // export default function CartScreen() {
+export default function CartScreen() {
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
+  const { data: session } = useSession();
 
   const {
     cart: { cartItems },
@@ -23,6 +23,12 @@ function CartScreen() {
   const updateCartHandler = (item, qty) => {
     const quantity = Number(qty);
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
+  };
+
+  const handleCheckout = () => {
+    session?.user
+      ? router.push('/shipping')
+      : router.push('login?redirect=/shipping');
   };
 
   return (
@@ -100,7 +106,7 @@ function CartScreen() {
               </li>
               <li>
                 <button
-                  onClick={() => router.push('login?redirect=/shipping')}
+                  onClick={handleCheckout}
                   className="primary-button w-full"
                 >
                   Check Out
@@ -113,5 +119,3 @@ function CartScreen() {
     </Layout>
   );
 }
-
-export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

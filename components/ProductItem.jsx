@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function ProductItem({ product }) {
   return (
     <div className="card productCard">
-      <div className=" relative  w-full h-2/3 flex justify-center items-center bg-white">
+      <div className=" relative  w-full h-2/3 flex justify-center items-center bg-white rounded-lg">
         <Link href={`/product/${product.slug}`} className=" h-fit">
           <img
             src={product.image}

@@ -1,3 +1,4 @@
+import Auth from '@/components/Auth';
 import '@/styles/globals.css';
 import { StoreProvider } from '@/utils/Store';
 import { SessionProvider } from 'next-auth/react';
@@ -13,7 +14,13 @@ export default function App({
     <SessionProvider session={session}>
       <StoreProvider>
         <main className={`${rubik.variable} font-sans`}>
-          <Component {...pageProps} />
+          {Component.auth ? (
+            <Auth>
+              <Component {...pageProps} />
+            </Auth>
+          ) : (
+            <Component {...pageProps} />
+          )}
         </main>
       </StoreProvider>
     </SessionProvider>
