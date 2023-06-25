@@ -22,7 +22,6 @@ export default function Layout({ title, children }) {
     dispatch({ type: 'CART_RESET' });
     signOut({ callbackUrl: '/login' });
   };
-
   return (
     <>
       <Head>
@@ -30,9 +29,9 @@ export default function Layout({ title, children }) {
         <meta name="description" content="Ecommerce Website" />
       </Head>
       <ToastContainer position="bottom-center" limit={1} />
-      <div className=" flex min-h-screen flex-col justify-between">
-        <header className="z-20">
-          <nav className=" flex h-12 items-center px-4 justify-between shadow-md">
+      <div className="  flex min-h-screen flex-col justify-between">
+        <header className="z-20  fixed top-0 left-0 w-full ">
+          <nav className=" flex h-12 px-4 items-center justify-between shadow-md  bg-white     lg:mx-[calc((100%-1016px)/2)]">
             <Link href="/" className="text-lg font-bold">
               Food Cart
             </Link>
@@ -82,7 +81,7 @@ export default function Layout({ title, children }) {
             </div>
           </nav>
         </header>
-        <main className="container m-auto mt-4 px-4 ">{children}</main>
+        <main className="container m-auto mt-16 px-4 ">{children}</main>
         <footer className="flex h-10 justify-center items-center shadow-inner">
           Copyright © 2023 Javi González
         </footer>
