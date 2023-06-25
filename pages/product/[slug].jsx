@@ -1,28 +1,32 @@
 import { useContext } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
 import { Store } from '@/utils/Store';
-import data from '@/utils/data';
+import db from '@/utils/db';
+import Product from '@/models/Product';
 
-export default function ProductScreen() {
+export default function ProductScreen(props) {
+  const { product } = props;
   const { state, dispatch } = useContext(Store);
-  const { query } = useRouter();
-  const { slug } = query;
-  const product = data.products.find(
-    (p) => p.slug.toLowerCase() === slug?.toLowerCase()
-  );
+
   if (!product) {
-    return <h1>Product Not Found</h1>;
+    return (
+      <Layout title="Product not found">
+        <h1>Product Not Found</h1>
+      </Layout>
+    );
   }
 
-  const addToCartHandler = () => {
+  const addToCartHandler = async () => {
     const existItem = state.cart.cartItems?.find(
       (i) => i.slug.toLowerCase() === product.slug.toLowerCase()
     );
     const quantity = existItem ? existItem.quantity + 1 : 1;
 
-    if (product.stock < quantity) {
+    const response = await fetch(`/api/products/${product._id}`);
+    const productAPI = await response.json();
+
+    if (productAPI.stock < quantity) {
       alert('Sorry, product is out of stock');
       return;
     }
@@ -76,4 +80,17 @@ export default function ProductScreen() {
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  const { slug } = params;
+  await db.connect();
+  const product = await Product.findOne({ slug }).lean();
+  await db.disconnect();
+  return {
+    props: {
+      product: product ? db.convertDocToObj(product) : null,
+    },
+  };
 }
