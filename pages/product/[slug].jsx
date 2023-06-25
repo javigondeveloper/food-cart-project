@@ -1,13 +1,12 @@
-import { useContext } from 'react';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
-import { Store } from '@/utils/Store';
 import db from '@/utils/db';
 import Product from '@/models/Product';
+import useCart from '@/hooks/useCart';
 
 export default function ProductScreen(props) {
   const { product } = props;
-  const { state, dispatch } = useContext(Store);
+  const { addItemToCart } = useCart(product);
 
   if (!product) {
     return (
@@ -16,22 +15,6 @@ export default function ProductScreen(props) {
       </Layout>
     );
   }
-
-  const addToCartHandler = async () => {
-    const existItem = state.cart.cartItems?.find(
-      (i) => i.slug.toLowerCase() === product.slug.toLowerCase()
-    );
-    const quantity = existItem ? existItem.quantity + 1 : 1;
-
-    const response = await fetch(`/api/products/${product._id}`);
-    const productAPI = await response.json();
-
-    if (productAPI.stock < quantity) {
-      alert('Sorry, product is out of stock');
-      return;
-    }
-    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
-  };
 
   return (
     <Layout title={product.name}>
@@ -73,7 +56,7 @@ export default function ProductScreen(props) {
             <div>Satus</div>
             <div>{product.stock > 0 ? 'In stock' : 'Unavailable'}</div>
           </div>
-          <button className="primary-button w-full" onClick={addToCartHandler}>
+          <button className="primary-button w-full" onClick={addItemToCart}>
             Add to cart
           </button>
         </div>

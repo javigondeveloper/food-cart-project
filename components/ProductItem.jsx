@@ -1,6 +1,9 @@
 import Link from 'next/link';
+import useCart from '@/hooks/useCart';
 
 export default function ProductItem({ product }) {
+  const { addItemToCart } = useCart(product);
+
   return (
     <div className="card productCard">
       <div className=" relative  w-full h-2/3 flex justify-center items-center bg-white rounded-lg">
@@ -18,7 +21,11 @@ export default function ProductItem({ product }) {
         </Link>
         <p className="mb-2">{product.brand}</p>
         <p>{`EUR ${product.price}`}</p>
-        <button className="primary-button" type="button">
+        <button
+          className="primary-button"
+          type="button"
+          onClick={addItemToCart}
+        >
           Add to cart
         </button>
       </div>
