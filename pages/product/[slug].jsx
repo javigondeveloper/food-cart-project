@@ -3,10 +3,25 @@ import Layout from '@/components/Layout';
 import db from '@/utils/db';
 import Product from '@/models/Product';
 import useCart from '@/hooks/useCart';
+import { useContext, useEffect, useState } from 'react';
+import { Store } from '@/utils/Store';
 
 export default function ProductScreen(props) {
+  const { state } = useContext(Store);
+  const [available, setAvailable] = useState();
   const { product } = props;
   const { addItemToCart } = useCart(product);
+
+  useEffect(() => {
+    const { cartItems } = state.cart;
+    const quantityInCart =
+      cartItems.find((p) => p._id === product._id)?.quantity || 0;
+    if (product.stock > quantityInCart) {
+      setAvailable(true);
+    } else {
+      setAvailable(false);
+    }
+  }, [product, state]);
 
   if (!product) {
     return (
@@ -54,9 +69,17 @@ export default function ProductScreen(props) {
           </div>
           <div className="mb-2 flex justify-between">
             <div>Satus</div>
-            <div>{product.stock > 0 ? 'In stock' : 'Unavailable'}</div>
+
+            <div className={available ? '' : 'text-red-500'}>
+              {available ? 'In stock' : 'Unavailable'}
+            </div>
           </div>
-          <button className="primary-button w-full" onClick={addItemToCart}>
+
+          <button
+            className="primary-button w-full disabledClass "
+            onClick={addItemToCart}
+            disabled={!available}
+          >
             Add to cart
           </button>
         </div>
@@ -71,6 +94,7 @@ export async function getServerSideProps(context) {
   await db.connect();
   const product = await Product.findOne({ slug }).lean();
   await db.disconnect();
+
   return {
     props: {
       product: product ? db.convertDocToObj(product) : null,

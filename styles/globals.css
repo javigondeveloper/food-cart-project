@@ -43,3 +43,7 @@ textarea {
 .dropdown-link {
   @apply flex p-2 hover:bg-gray-200 rounded-md;
 }
+
+.disabledClass {
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+}

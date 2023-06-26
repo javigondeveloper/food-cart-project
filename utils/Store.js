@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 export const Store = createContext();
 
 const initialState = {
+  productsAvailables: [],
   cart: Cookies.get('cart')
     ? JSON.parse(Cookies.get('cart'))
     : {
@@ -15,6 +16,9 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
+    case 'SET_PRODUCTS_AVAILABLES': {
+      return { ...state, productsAvailables: action.payload };
+    }
     case 'CART_ADD_ITEM': {
       const newItem = action.payload;
       const existItem = state.cart.cartItems.find(
