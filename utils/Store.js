@@ -40,6 +40,7 @@ function reducer(state, action) {
       return { ...state, cart: { ...state.cart, cartItems } };
     }
     case 'CART_RESET': {
+      //logout
       Cookies.remove('cart');
       return {
         ...state,
@@ -48,6 +49,19 @@ function reducer(state, action) {
           shippingAddress: { location: {} },
           paymentMethod: '',
         },
+      };
+    }
+    case 'CART_CLEAR_ITEMS': {
+      Cookies.set(
+        'cart',
+        JSON.stringify({
+          ...state.cart,
+          cartItems: [],
+        })
+      );
+      return {
+        ...state,
+        cart: { ...state.cart, cartItems: [] },
       };
     }
     case 'SAVE_SHIPPING_ADDRESS': {
