@@ -32,14 +32,6 @@ export default function PlaceOrderScreen() {
     totalPrice,
   };
 
-  //   fetch(url, {
-  //     method: 'POST', // or 'PUT'
-  //     body: JSON.stringify(data), // data can be `string` or {object}!
-  //     headers:{
-  //       'Content-Type': 'application/json'
-  //     }
-  //   }).then(res => res.json())
-
   useEffect(() => {
     if (!paymentMethod) {
       router.push('/payment');
@@ -48,17 +40,19 @@ export default function PlaceOrderScreen() {
 
   const placeOrderHandler = async () => {
     try {
+      setLoading(true);
       const response = await fetch('/api/orders', {
         method: 'POST',
-        body: JSON.stringify(orderData),
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(orderData),
       });
-      const newOrder = response.json();
+      const newOrder = await response.json();
+
       setLoading(false);
       dispatch({ type: 'CART_CLEAR_ITEMS' });
-      router.push(`/prder/${newOrder._id}`);
+      router.push(`/order/${newOrder._id}`);
     } catch (err) {
       setLoading(false);
       toast.error(getError(err));
@@ -137,7 +131,7 @@ export default function PlaceOrderScreen() {
               </div>
             </div>
           </div>
-          <div className="card p-5">
+          <div className="card p-5 h-max">
             <h2 className="mb-2 text-lg">Order Sumary</h2>
             <ul>
               <li>
