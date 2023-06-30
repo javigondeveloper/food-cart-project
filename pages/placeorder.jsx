@@ -23,7 +23,7 @@ export default function PlaceOrderScreen() {
   const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
 
   const orderData = {
-    OrderItems: cartItems,
+    orderItems: cartItems,
     shippingAddress,
     paymentMethod,
     itemsPrice,
@@ -113,7 +113,6 @@ export default function PlaceOrderScreen() {
                             width={50}
                             height={50}
                           ></Image>
-                          {/* &nbsp; */}
                           <div>{item.name}</div>
                         </Link>
                       </td>
