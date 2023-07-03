@@ -7,12 +7,14 @@ import Layout from '@/components/Layout';
 import CheckoutWizard from '@/components/CheckoutWizard';
 import { Store } from '@/utils/Store';
 import { getError } from '@/utils/error';
+import formatNumber from '@/utils/formatNumber';
 
 export default function PlaceOrderScreen() {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { cartItems, shippingAddress, paymentMethod } = state.cart;
   const [loading, setLoading] = useState(false);
+  const [orderCurrency, setOrderCurrency] = useState('');
 
   const round2 = (num) => Math.round(num * 100) / 100;
   const itemsPrice = round2(
@@ -30,6 +32,7 @@ export default function PlaceOrderScreen() {
     shippingPrice,
     taxPrice,
     totalPrice,
+    currency: orderCurrency,
   };
 
   useEffect(() => {
@@ -37,6 +40,10 @@ export default function PlaceOrderScreen() {
       router.push('/payment');
     }
   }, [paymentMethod, router]);
+
+  useEffect(() => {
+    setOrderCurrency(cartItems[0]?.currency);
+  }, [cartItems]);
 
   const placeOrderHandler = async () => {
     try {
@@ -117,9 +124,14 @@ export default function PlaceOrderScreen() {
                         </Link>
                       </td>
                       <td className="p-5 text-right">{item.quantity}</td>
-                      <td className="p-5 text-right">{item.price}</td>
                       <td className="p-5 text-right">
-                        Eur &nbsp; {item.quantity * item.price}
+                        {formatNumber(item.price, orderCurrency)}
+                      </td>
+                      <td className="p-5 text-right">
+                        {formatNumber(
+                          item.quantity * item.price,
+                          orderCurrency
+                        )}
                       </td>
                     </tr>
                   ))}
@@ -136,25 +148,25 @@ export default function PlaceOrderScreen() {
               <li>
                 <div className="mb-2 flex justify-between">
                   <div>Items</div>
-                  <div>Eur &nbsp;{itemsPrice}</div>
+                  <div>{formatNumber(itemsPrice, orderCurrency)}</div>
                 </div>
               </li>
               <li>
                 <div className="mb-2 flex justify-between">
                   <div>Tax</div>
-                  <div>Eur &nbsp;{taxPrice}</div>
+                  <div>{formatNumber(taxPrice, orderCurrency)}</div>
                 </div>
               </li>
               <li>
                 <div className="mb-2 flex justify-between">
                   <div>Shpping</div>
-                  <div>Eur &nbsp;{shippingPrice}</div>
+                  <div>{formatNumber(shippingPrice, orderCurrency)}</div>
                 </div>
               </li>
               <li>
                 <div className="mb-2 flex justify-between">
                   <div>Total</div>
-                  <div>Eur &nbsp;{totalPrice}</div>
+                  <div>{formatNumber(totalPrice, orderCurrency)}</div>
                 </div>
               </li>
               <li>

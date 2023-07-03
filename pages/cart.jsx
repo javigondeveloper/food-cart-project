@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import formatNumber from '@/utils/formatNumber';
 
 export default function CartScreen() {
   const { state, dispatch } = useContext(Store);
@@ -82,7 +83,9 @@ export default function CartScreen() {
                         ))}
                       </select>
                     </td>
-                    <td className="p-5 text-right">Eur {item.price}</td>
+                    <td className="p-5 text-right">
+                      {formatNumber(item.price, item.currency)}
+                    </td>
                     <td className="p-5 text-center">
                       <button onClick={() => removeItemHandler(item)}>
                         <XCircleIcon className="h-5 w-5"></XCircleIcon>
@@ -96,11 +99,13 @@ export default function CartScreen() {
           <div className="card p-5">
             <ul>
               <li>
-                <div className="pb-3 text-lg">
+                <div className="pb-3 text-lg flex justify-between">
                   Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}):{' '}
                   <span className="whitespace-nowrap">
-                    Eur{' '}
-                    {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+                    {formatNumber(
+                      cartItems.reduce((a, c) => a + c.quantity * c.price, 0),
+                      cartItems[0]?.currency
+                    )}
                   </span>
                 </div>
               </li>

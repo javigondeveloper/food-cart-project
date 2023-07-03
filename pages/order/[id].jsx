@@ -1,6 +1,7 @@
 import Layout from '@/components/Layout';
 import { getError } from '@/utils/error';
 import formatDate from '@/utils/formatDate';
+import formatNumber from '@/utils/formatNumber';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -68,7 +69,7 @@ function OrderScreen() {
           type: 'resetOptions',
           value: {
             'client-id': clientId,
-            currency: 'EUR',
+            currency: order.currency,
           },
         });
         paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
@@ -89,6 +90,7 @@ function OrderScreen() {
     paidAt,
     isDelivered,
     deliveredAt,
+    currency,
   } = order;
 
   function createOrder(data, actions) {
@@ -197,9 +199,11 @@ function OrderScreen() {
                         </Link>
                       </td>
                       <td className="p-5 text-right">{item.quantity}</td>
-                      <td className="p-5 text-right">{item.taxPrice}</td>
                       <td className="p-5 text-right">
-                        Eur &nbsp;{item.quantity * item.price}
+                        {formatNumber(item.price, currency)}
+                      </td>
+                      <td className="p-5 text-right">
+                        {formatNumber(item.quantity * item.price, currency)}
                       </td>
                     </tr>
                   ))}
@@ -213,28 +217,28 @@ function OrderScreen() {
               <li>
                 <div className="mb-2 flex justify-between">
                   <div>Items</div>
-                  <div>Eur &nbsp;{itemsPrice}</div>
+                  <div>{formatNumber(itemsPrice, currency)}</div>
                 </div>
               </li>
 
               <li>
                 <div className="mb-2 flex justify-between">
                   <div>Tax</div>
-                  <div>Eur &nbsp;{taxPrice}</div>
+                  <div>{formatNumber(taxPrice, currency)}</div>
                 </div>
               </li>
 
               <li>
                 <div className="mb-2 flex justify-between">
                   <div>Shipping</div>
-                  <div>Eur &nbsp;{shippingPrice}</div>
+                  <div>{formatNumber(shippingPrice, currency)}</div>
                 </div>
               </li>
 
               <li>
                 <div className="mb-2 flex justify-between">
                   <div>Total</div>
-                  <div>Eur &nbsp;{totalPrice}</div>
+                  <div>{formatNumber(totalPrice, currency)}</div>
                 </div>
               </li>
 

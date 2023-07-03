@@ -5,6 +5,7 @@ import Product from '@/models/Product';
 import useCart from '@/hooks/useCart';
 import { useContext, useEffect, useState } from 'react';
 import { Store } from '@/utils/Store';
+import formatNumber from '@/utils/formatNumber';
 
 export default function ProductScreen(props) {
   const { state } = useContext(Store);
@@ -65,7 +66,7 @@ export default function ProductScreen(props) {
         <div className="card h-fit p-5">
           <div className="mb-2 flex justify-between">
             <div>Price</div>
-            <div>Eur {product.price}</div>
+            <div> {formatNumber(product.price, product.currency)}</div>
           </div>
           <div className="mb-2 flex justify-between">
             <div>Satus</div>

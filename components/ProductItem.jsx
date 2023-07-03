@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import useCart from '@/hooks/useCart';
+import formatNumber from '@/utils/formatNumber';
 
 export default function ProductItem({ product }) {
   const { addItemToCart } = useCart(product);
@@ -30,7 +31,7 @@ export default function ProductItem({ product }) {
             <h2 className="text-lg font-bold text-center">{product.name}</h2>
           </Link>
           <p className="mb-2">{product.brand}</p>
-          <p>{`EUR ${product.price}`}</p>
+          <p>{formatNumber(product.price, product.currency)}</p>
           <button
             className="primary-button"
             type="button"
