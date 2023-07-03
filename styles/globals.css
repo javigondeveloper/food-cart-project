@@ -21,9 +21,7 @@ a {
 }
 
 .productCard {
-  width: 21.25rem;
-  height: 32rem;
-  @apply bg-sky-50;
+  @apply bg-sky-50 w-[21.25rem] h-[32rem];
 }
 
 .primary-button {
