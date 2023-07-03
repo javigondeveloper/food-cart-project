@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout';
 import ProductItem from '@/components/ProductItem';
 import Product from '@/models/Product';
-import { Store } from '@/utils/Store';
+import { Store } from '@/store';
 import db from '@/utils/db';
 import getQuantityUpdated from '@/utils/getQuantityUpdated';
 import { useContext, useEffect } from 'react';

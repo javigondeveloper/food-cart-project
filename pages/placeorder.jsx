@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import Layout from '@/components/Layout';
 import CheckoutWizard from '@/components/CheckoutWizard';
-import { Store } from '@/utils/Store';
 import { getError } from '@/utils/error';
 import formatNumber from '@/utils/formatNumber';
+import { Store } from '@/store';
 
 export default function PlaceOrderScreen() {
   const router = useRouter();

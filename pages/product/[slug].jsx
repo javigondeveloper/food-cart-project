@@ -4,8 +4,8 @@ import db from '@/utils/db';
 import Product from '@/models/Product';
 import useCart from '@/hooks/useCart';
 import { useContext, useEffect, useState } from 'react';
-import { Store } from '@/utils/Store';
 import formatNumber from '@/utils/formatNumber';
+import { Store } from '@/store';
 
 export default function ProductScreen(props) {
   const { state } = useContext(Store);

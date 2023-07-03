@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { ToastContainer } from 'react-toastify';
-import { Store } from '@/utils/Store';
 import { signOut, useSession } from 'next-auth/react';
 import 'react-toastify/dist/ReactToastify.css';
 import { Menu } from '@headlessui/react';
+import { Store } from '@/store';
 
 export default function Layout({ title, children }) {
   const { status, data: session } = useSession();

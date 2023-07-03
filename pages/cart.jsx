@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { Store } from '@/utils/Store';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -7,6 +6,7 @@ import { XCircleIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import formatNumber from '@/utils/formatNumber';
+import { Store } from '@/store';
 
 export default function CartScreen() {
   const { state, dispatch } = useContext(Store);

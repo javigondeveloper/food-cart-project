@@ -1,6 +1,6 @@
 import CheckoutWizard from '@/components/CheckoutWizard';
 import Layout from '@/components/Layout';
-import { Store } from '@/utils/Store';
+import { Store } from '@/store';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';

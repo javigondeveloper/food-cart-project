@@ -1,5 +1,5 @@
+import { Store } from '@/store';
 import { useContext } from 'react';
-import { Store } from '@/utils/Store';
 import { toast } from 'react-toastify';
 
 function useCart(product) {
