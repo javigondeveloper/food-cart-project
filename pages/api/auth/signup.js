@@ -1,5 +1,5 @@
-const { default: User } = require('@/models/User');
-const { default: db } = require('@/utils/db');
+import User from '@/models/User';
+import db from '@/utils/db';
 import bcrypt from 'bcryptjs';
 
 async function signUp(req, res) {

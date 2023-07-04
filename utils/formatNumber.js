@@ -12,7 +12,7 @@ export default function formatNumber(number, currency) {
   try {
     return numberToFormat.toLocaleString('en-In', {
       style: currency ? 'currency' : 'decimal',
-      currency: currency,
+      currency,
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
