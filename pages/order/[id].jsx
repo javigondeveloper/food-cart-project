@@ -1,10 +1,9 @@
 import Layout from '@/components/Layout';
+import OrderItemsTable from '@/components/OrderItemsTable';
 import { getError } from '@/utils/error';
 import formatDate from '@/utils/formatDate';
 import formatNumber from '@/utils/formatNumber';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useReducer } from 'react';
 import { toast } from 'react-toastify';
@@ -171,46 +170,14 @@ function OrderScreen() {
             </div>
 
             <div className="card p-5 overflow-auto">
-              <h2 className="mb-2 text-lg">Order items</h2>
-              <table className="min-w-full">
-                <thead className="border-b">
-                  <tr>
-                    <th className="px-5 text-left">Item</th>
-                    <th className="px-5 text-rght">Quantity</th>
-                    <th className="px-5 text-rght">Price</th>
-                    <th className="px-5 text-rght">Subtotal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orderItems.map((item) => (
-                    <tr className="border-b" key={item._id}>
-                      <td>
-                        <Link
-                          href={`/product/${item.slug}`}
-                          className="flex items-center gap-1"
-                        >
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            width={50}
-                            height={50}
-                          ></Image>
-                          <div>{item.name}</div>
-                        </Link>
-                      </td>
-                      <td className="p-5 text-right">{item.quantity}</td>
-                      <td className="p-5 text-right">
-                        {formatNumber(item.price, currency)}
-                      </td>
-                      <td className="p-5 text-right">
-                        {formatNumber(item.quantity * item.price, currency)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <h2 className="text-lg">Order items</h2>
+              <OrderItemsTable
+                orderItems={orderItems}
+                orderCurrency={currency}
+              />
             </div>
           </div>
+
           <div className="card p-5">
             <h2 className="mb-2 text-lg">Order Sumary</h2>
             <ul>
