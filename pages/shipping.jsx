@@ -38,7 +38,7 @@ export default function ShippingScreen() {
     <Layout title="Shipping Address">
       <CheckoutWizard activeStep={1} />
       <form
-        className="mx-auto max-w-screen-md "
+        className="mx-auto max-w-screen-md w-full"
         onSubmit={handleSubmit(submitHandler)}
       >
         <h1 className="mb-4 text-xl">Shipping Address</h1>

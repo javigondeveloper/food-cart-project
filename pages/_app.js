@@ -15,7 +15,7 @@ export default function App({
     <SessionProvider session={session}>
       <StoreProvider>
         <PayPalScriptProvider deferLoading={true}>
-          <main className={`${rubik.variable} font-sans`}>
+          <div className={`${rubik.variable} font-sans`}>
             {Component.auth ? (
               <Auth>
                 <Component {...pageProps} />
@@ -23,7 +23,7 @@ export default function App({
             ) : (
               <Component {...pageProps} />
             )}
-          </main>
+          </div>
         </PayPalScriptProvider>
       </StoreProvider>
     </SessionProvider>

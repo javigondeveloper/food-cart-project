@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 function useCart(product) {
   const { state, dispatch } = useContext(Store);
   const existItemInCart = state.cart.cartItems?.find(
-    (i) => i.slug.toLowerCase() === product.slug.toLowerCase()
+    (i) => i.slug === product.slug
   );
 
   const addItemToCart = async () => {

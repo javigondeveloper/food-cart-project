@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { ToastContainer } from 'react-toastify';
 import { signOut, useSession } from 'next-auth/react';
 import 'react-toastify/dist/ReactToastify.css';
-import { Menu } from '@headlessui/react';
 import { Store } from '@/store';
+import MenuBox from './MenuBox';
 
 export default function Layout({ title, children }) {
   const { status, data: session } = useSession();
@@ -29,12 +29,15 @@ export default function Layout({ title, children }) {
         <meta name="description" content="Ecommerce Website" />
       </Head>
       <ToastContainer position="bottom-center" limit={1} />
-      <div className="  flex min-h-screen flex-col justify-between">
+      <div className="  flex min-h-screen flex-col justify-between bg-cyan-100">
         <header className="z-20  fixed top-0 left-0 w-full ">
+          {/* navBar */}
           <nav className=" flex h-12 px-4 items-center justify-between shadow-md  bg-white     lg:mx-[calc((100%-1016px)/2)]">
             <Link href="/" className="text-lg font-bold">
               Food Cart
             </Link>
+
+            {/* cart menu item */}
             <div>
               <Link href="/cart" className=" p-2 text-lg">
                 Cart
@@ -44,35 +47,12 @@ export default function Layout({ title, children }) {
                   </span>
                 )}
               </Link>
+
+              {/* user menu item */}
               {status === 'loading' ? (
                 'Loading'
               ) : session?.user ? (
-                <Menu as="div" className="relative inline-block">
-                  <Menu.Button className="text-blue-600 hover:text-blue-800">
-                    {session.user.name}
-                  </Menu.Button>
-                  <Menu.Items className="absolute right-0 w-56 origin-top-right shadow-lg bg-white rounded-lg p-2">
-                    <Menu.Item>
-                      <Link className="dropdown-link" href="/profile">
-                        Profile
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item>
-                      <Link className="dropdown-link" href="/order-history">
-                        Order History
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item>
-                      <Link
-                        className="dropdown-link"
-                        href="#"
-                        onClick={logoutClickHandler}
-                      >
-                        Logout
-                      </Link>
-                    </Menu.Item>
-                  </Menu.Items>
-                </Menu>
+                <MenuBox session={session} clickHandler={logoutClickHandler} />
               ) : (
                 <Link href="/login" className="p-2 text-lg">
                   Login
@@ -81,8 +61,12 @@ export default function Layout({ title, children }) {
             </div>
           </nav>
         </header>
-        <main className="container m-auto mt-16 px-4 ">{children}</main>
-        <footer className="flex h-10 justify-center items-center shadow-inner">
+
+        <main className="container flex flex-col mx-auto mt-16 px-4 flex-grow ">
+          {children}
+        </main>
+
+        <footer className="flex h-10 justify-center items-center shadow-inner bg-white">
           Copyright © 2023 Javi González
         </footer>
       </div>

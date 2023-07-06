@@ -8,7 +8,7 @@ body {
   margin: 0;
 }
 body {
-  @apply px-4  md:px-8  lg:px-[calc((100%-1016px)/2)] max-h-screen;
+  @apply px-4  md:px-8 bg-slate-200 lg:px-[calc((100%-1016px)/2)] max-h-screen;
 }
 a {
   @apply text-blue-600 hover:text-blue-800;
@@ -21,7 +21,7 @@ a {
 }
 
 .productCard {
-  @apply bg-sky-50 w-[21.25rem] h-[32rem];
+  @apply bg-cyan-200 w-[21.25rem] h-[32rem];
 }
 
 .primary-button {

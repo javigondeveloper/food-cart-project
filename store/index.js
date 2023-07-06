@@ -29,7 +29,16 @@ function reducer(state, action) {
             item.name === existItem.name ? newItem : item
           )
         : [...state.cart.cartItems, newItem];
-      Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
+
+      // create a copy of cartItems with no product description to avoid exceeding cookie storage limit
+      const cartItemsCopy = JSON.stringify(cartItems);
+      const itemsForCookies = JSON.parse(cartItemsCopy);
+      itemsForCookies.forEach((i) => delete i.description);
+      Cookies.set(
+        'cart',
+        JSON.stringify({ ...state.cart, cartItems: itemsForCookies })
+      );
+
       return { ...state, cart: { ...state.cart, cartItems } };
     }
     case 'CART_REMOVE_ITEM': {
