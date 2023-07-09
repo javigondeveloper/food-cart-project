@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { Menu } from '@headlessui/react';
 
-function MenuBox(props) {
-  const { session, clickHandler } = props;
+function MenuBox({ session, clickHandler }) {
   return (
     <Menu as="div" className="relative inline-block ">
       <Menu.Button className="text-blue-600 hover:text-blue-800">

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { signIn, useSession } from 'next-auth/react';
@@ -6,8 +6,11 @@ import { useForm } from 'react-hook-form';
 import { getError } from '@/utils/error';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import EyePasswordIcon from '@/components/EyePasswordIcon';
 
 export default function LoginScreen() {
+  const [viewPassword, setViewPassword] = useState(false);
+
   const { data: session } = useSession();
   const router = useRouter();
   const { redirect } = router.query;
@@ -41,10 +44,11 @@ export default function LoginScreen() {
   return (
     <Layout title="Login">
       <form
-        className="mx-auto max-w-screen-md"
+        className="mx-auto w-full max-w-[400px]"
         onSubmit={handleSubmit(submitHandler)}
       >
         <h1 className="mb-4 text-xl">Login</h1>
+
         <div className="mb-4">
           <label htmlFor="email">Email</label>
           <input
@@ -65,21 +69,28 @@ export default function LoginScreen() {
             <div className="text-red-500">{errors.email.message}</div>
           )}
         </div>
+
         <div className="mb-4">
           <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            {...register('password', {
-              required: 'Please enter password',
-              minLength: {
-                value: 6,
-                message: 'Password is more than 5 characters',
-              },
-            })}
-            name="password"
-            id="password"
-            className="w-full"
-          />
+          <div className="relative ">
+            <input
+              type={viewPassword ? 'text' : 'password'}
+              {...register('password', {
+                required: 'Please enter password',
+                minLength: {
+                  value: 6,
+                  message: 'Password is more than 5 characters',
+                },
+              })}
+              name="password"
+              id="password"
+              className="w-full"
+            />
+            <EyePasswordIcon
+              showPassword={viewPassword}
+              onClick={() => setViewPassword(!viewPassword)}
+            />
+          </div>
           {errors.password && (
             <div className="text-red-500">{errors.password.message}</div>
           )}
