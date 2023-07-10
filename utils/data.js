@@ -72,6 +72,20 @@ const data = {
       price: 4.0,
       currency: 'EUR',
     },
+    {
+      name: 'white wine',
+      slug: 'white-wine',
+      brand: 'luxurys',
+      category: 'wine',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut faucibus auctor justo non pharetra. Suspendisse ut maximus sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae laoreet tellus. Mauris in felis vehicula, ullamcorper mauris sed, vulputate elit. Nam iaculis nulla nisi, vitae facilisis magna placerat id. Nullam bibendum ultricies lectus in mattis. Nulla vehicula est vel tincidunt posuere. Etiam scelerisque arcu nec ligula posuere efficitur. In vitae tristique ligula. Donec ac leo in orci accumsan gravida. Donec venenatis volutpat augue, nec facilisis libero ultrices et. Phasellus nulla neque, viverra vel est ac, imperdiet suscipit lacus.',
+      image: '/images/white-wine.jpg',
+      rating: 4.4,
+      reviews: 8,
+      stock: 20,
+      price: 4.0,
+      currency: 'EUR',
+    },
   ],
   users: [
     {

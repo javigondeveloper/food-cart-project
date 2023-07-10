@@ -26,9 +26,13 @@ export default function Home({ products }) {
   return (
     <Layout title="Home Page">
       <div className=" flex flex-wrap justify-around">
-        {productsAvailables.map((product, index) => (
-          <ProductItem product={product} key={index} />
-        ))}
+        {productsAvailables.length === 0 ? (
+          <h1>Product not available</h1>
+        ) : (
+          productsAvailables.map((product, index) => (
+            <ProductItem product={product} key={index} />
+          ))
+        )}
       </div>
     </Layout>
   );
