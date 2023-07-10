@@ -27,7 +27,7 @@ function UserProfileForm({ submitHandler, user }) {
       className="mx-auto w-full max-w-[400px] "
       onSubmit={handleSubmit(submitHandler)}
     >
-      <h1 className="mb-4 text-xl">Create Account</h1>
+      <h1 className="mb-4 text-xl">{user ? 'Profile' : 'Create Account'}</h1>
 
       <div className="mb-4">
         <label htmlFor="name">Name</label>
