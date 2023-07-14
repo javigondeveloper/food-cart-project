@@ -20,7 +20,6 @@ export default function ProductItem({ product }) {
         }`}
       >
         <div className=" relative  w-full h-2/3 max-h-[240px] flex justify-center items-center bg-white rounded-lg">
-          {/* <div className=" relative  w-full h-2/3 flex justify-center items-center bg-white rounded-lg"> */}
           <Link href={`/product/${product.slug}`} className=" h-fit">
             <img
               src={product.image}

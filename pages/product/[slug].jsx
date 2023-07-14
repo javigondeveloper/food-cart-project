@@ -39,7 +39,7 @@ export default function ProductScreen(props) {
           back to products
         </Link>
       </div>
-      <div className="grid   p-4 md:p-8 md:grid-cols-4 md:gap-3 md:h-min bg-sky-50 ">
+      <div className="grid   p-4 md:p-8 md:grid-cols-4 md:gap-3 md:h-min  ">
         <div className=" md:col-span-2 relative ">
           <img
             className="m-auto rounded-lg max-h-[200px] "
