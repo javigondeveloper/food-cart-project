@@ -1,3 +1,45 @@
+# Food Cart
+
+## Introduction
+
+This is my first project with the technology Next Js
+
+## About the project
+
+The focus of the app is about customer use.
+The app start in home page where the user can search and select products to send to the cart
+the user can create an account, login (logout too) and buy the products making an order wich can be paid thru PayPal, it also a Profile screen where the user can change it's name, email and password
+There is another screen with the order's history of the user
+
+## Features
+
+- User authentication
+- Item listing
+- Detail of each listed item
+- select products
+- Edit products in cart
+- Delete items in cart
+- Creation of order
+- compsumption of PayPal API
+- Errors management
+
+## Techologies used
+
+> **Frontend** <br> ![Static Badge](https://img.shields.io/badge/React-000?logo=react&logoColor=%2361DAFB&labelColor=white&color=white) ![Static Badge](https://img.shields.io/badge/Next.JS-black?logo=Next.js&logoColor=black&labelColor=white&color=white) ![Static Badge](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990?logo=React%20Hook%20Form&logoColor=%23EC5990&labelColor=white&color=white) ![Static Badge](https://img.shields.io/badge/Next--Auth.js-000000?logo=next-authjs&logoColor=black&labelColor=white&color=white) ![Static Badge](https://img.shields.io/badge/TailWind%20CSS-000?logo=tailwind%20CSS&logoColor=%2306B6D4&labelColor=white&color=white) ![Static Badge](https://img.shields.io/badge/PayPal-000?logo=paypal&logoColor=%2300457C&labelColor=white&color=white) ![Static Badge](https://img.shields.io/badge/Eslint-0000?logo=ESlint&logoColor=%234B32C3&labelColor=white&color=white) ![Static Badge](https://img.shields.io/badge/Prettier-000?logo=prettier&logoColor=%23F7B93E&labelColor=white&color=white)
+
+> **Backend** <br> ![Static Badge](https://img.shields.io/badge/Next.JS-black?logo=Next.js&logoColor=black&labelColor=white&color=white) ![Static Badge](https://img.shields.io/badge/Next--Auth.js-000000?logo=next-authjs&logoColor=black&labelColor=white&color=white) ![Static Badge](https://img.shields.io/badge/mongoDB-000?logo=mongodb&logoColor=%2300457C&labelColor=white&color=white) ![Static Badge](https://img.shields.io/badge/mongoose-000?logo=mongoose&logoColor=%23880000&labelColor=white&color=white) ![Static Badge](https://img.shields.io/badge/Eslint-0000?logo=ESlint&logoColor=%234B32C3&labelColor=white&color=white) ![Static Badge](https://img.shields.io/badge/Prettier-000?logo=prettier&logoColor=%23F7B93E&labelColor=white&color=white)
+
+## Links
+
+### Deployed at Vercel
+
+https://food-cart-project-2lcdtk5b3-javigondeveloper.vercel.app/
+
+---
+
+<br>
+###Instructions
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -14,10 +56,6 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
@@ -30,9 +68,3 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
