@@ -1,8 +1,17 @@
 import Link from 'next/link';
 import { Menu } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/solid';
+import { useContext } from 'react';
+import { Store } from '@/store';
+import { signOut } from 'next-auth/react';
 
-function MenuBox({ session, clickHandler, cartItemsCount }) {
+function MenuBox({ session, cartItemsCount }) {
+  const { dispatch } = useContext(Store);
+
+  const logoutClickHandler = () => {
+    dispatch({ type: 'CART_RESET' });
+    signOut({ callbackUrl: '/login' });
+  };
   return (
     <Menu as="div" className="relative inline-block  ">
       <Menu.Button className="text-blue-600 hover:text-blue-800 hidden md:flex items-center">
@@ -49,7 +58,7 @@ function MenuBox({ session, clickHandler, cartItemsCount }) {
           <Link
             className="dropdown-link text-white hover:bg-cyan-300 hover:text-white"
             href="#"
-            onClick={clickHandler}
+            onClick={logoutClickHandler}
           >
             Logout
           </Link>

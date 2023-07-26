@@ -1,49 +1,32 @@
 import Layout from '@/components/Layout';
-import ProductItem from '@/components/ProductItem';
+import ProductList from '@/components/ProductList';
+import useProductsWithStock from '@/hooks/useProductsWithStock';
 import Product from '@/models/Product';
-import { Store } from '@/store';
 import db from '@/utils/db';
-import getQuantityUpdated from '@/utils/getQuantityUpdated';
-import { useContext, useEffect } from 'react';
 
-export default function Home({ products }) {
-  const { state, dispatch } = useContext(Store);
-  const { productsAvailables } = state;
-  const { cartItems } = state.cart;
-
-  useEffect(() => {
-    const productsWhitStock = products.filter((p) => p.stock > 0);
-    productsWhitStock.forEach(
-      (p) => (p.stockAvailable = getQuantityUpdated(cartItems, p))
-    );
-
-    dispatch({
-      type: 'SET_PRODUCTS_AVAILABLES',
-      payload: productsWhitStock,
-    });
-  }, [cartItems, products, dispatch]);
+export default function Home({ totalProducts, products }) {
+  const { productsAvailables, error } = useProductsWithStock({
+    products,
+    totalProducts,
+  });
 
   return (
     <Layout title="Home Page">
-      <div className=" flex flex-wrap justify-around">
-        {productsAvailables.length === 0 ? (
-          <h1>Product not available</h1>
-        ) : (
-          productsAvailables.map((product, index) => (
-            <ProductItem product={product} key={index} />
-          ))
-        )}
-      </div>
+      {error ? <h2>{error}</h2> : <ProductList products={productsAvailables} />}
     </Layout>
   );
 }
 
 export async function getServerSideProps() {
   await db.connect();
-  const products = await Product.find().lean(); //lean fetch only the product data with no metadata
-
+  const products = await Product.find({ stock: { $gt: 0 } })
+    .limit(10)
+    .lean(); //lean fetch only the product data with no metadata (plane old js objects - POJOs)
+  const totalProducts = await Product.countDocuments();
+  db.disconnect();
   return {
     props: {
+      totalProducts,
       products: products.map(db.convertDocToObj),
     },
   };

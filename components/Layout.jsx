@@ -1,53 +1,31 @@
 import { useContext, useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ToastContainer, toast } from 'react-toastify';
-import { signOut, useSession } from 'next-auth/react';
+import { ToastContainer } from 'react-toastify';
+import { useSession } from 'next-auth/react';
 import 'react-toastify/dist/ReactToastify.css';
 import { Store } from '@/store';
 import MenuBox from './MenuBox';
 import SearchIcon from './icons/SearchIcon';
-import { getError } from '@/utils/error';
-import getQuantityUpdated from '@/utils/getQuantityUpdated';
+import useProductSearch from '@/hooks/useProductSearch';
+import { useRouter } from 'next/router';
 
 export default function Layout({ title, children }) {
   const { status, data: session } = useSession();
+  const router = useRouter();
 
-  const { state, dispatch } = useContext(Store);
+  const { state } = useContext(Store);
   const { cart } = state;
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [searchInput, setSearchInput] = useState('');
+  useProductSearch(searchInput);
 
   useEffect(() => {
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   }, [cart.cartItems]);
 
-  const logoutClickHandler = () => {
-    dispatch({ type: 'CART_RESET' });
-    signOut({ callbackUrl: '/login' });
-  };
-
   const handleChangeSearchInput = (event) => {
     setSearchInput(event.target.value);
-  };
-
-  const searchProduct = async (product) => {
-    try {
-      const response = await fetch(`/api/products/search?product=${product}`);
-      const { result } = await response.json();
-
-      const productsWhitStock = result.filter((p) => p.stock > 0);
-      productsWhitStock.forEach(
-        (p) => (p.stockAvailable = getQuantityUpdated(cart.cartItems, p))
-      );
-
-      dispatch({
-        type: 'SET_PRODUCTS_AVAILABLES',
-        payload: productsWhitStock,
-      });
-    } catch (error) {
-      toast.error(getError(error));
-    }
   };
 
   return (
@@ -66,20 +44,19 @@ export default function Layout({ title, children }) {
             </Link>
 
             {/* search input */}
-            <div className="flex shrink gap-1 min-w-[140px]  border rounded-md items-center">
-              <input
-                type="text"
-                className="w-full focus:ring-0 border-none"
-                placeholder="search product"
-                name="searchInput"
-                value={searchInput}
-                onChange={handleChangeSearchInput}
-              />
-              <SearchIcon
-                className="w-[1.2rem] h-[1.2rem] fill-blue-600 "
-                onClick={() => searchProduct(searchInput)}
-              />
-            </div>
+            {router.pathname === '/' && (
+              <div className="flex shrink gap-1 min-w-[140px]  border rounded-md items-center">
+                <input
+                  type="text"
+                  className="w-full focus:ring-0 border-none"
+                  placeholder="search product"
+                  name="searchInput"
+                  value={searchInput}
+                  onChange={handleChangeSearchInput}
+                />
+                <SearchIcon className="w-[1.5rem] h-[1.5rem] mr-2 fill-blue-600" />
+              </div>
+            )}
 
             {/* cart menu item */}
             <div className="flex items-center">
@@ -96,11 +73,7 @@ export default function Layout({ title, children }) {
               {status === 'loading' ? (
                 'Loading'
               ) : session?.user ? (
-                <MenuBox
-                  session={session}
-                  clickHandler={logoutClickHandler}
-                  cartItemsCount={cartItemsCount}
-                />
+                <MenuBox session={session} cartItemsCount={cartItemsCount} />
               ) : (
                 <Link href="/login" className="p-2 text-lg">
                   Login

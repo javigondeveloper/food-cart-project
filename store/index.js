@@ -12,6 +12,7 @@ const initialState = {
         shippingAddress: {},
         paymentMethod: '',
       },
+  error: '',
 };
 
 function reducer(state, action) {
@@ -109,6 +110,18 @@ function reducer(state, action) {
           ...state.cart,
           paymentMethod: action.payload,
         },
+      };
+    }
+    case 'SET_ERROR': {
+      return {
+        ...state,
+        error: action.payload,
+      };
+    }
+    case 'RESET_ERROR': {
+      return {
+        ...state,
+        error: '',
       };
     }
     default:
