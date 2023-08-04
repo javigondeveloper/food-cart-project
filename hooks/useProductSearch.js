@@ -1,54 +1,64 @@
 import { Store } from '@/store';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import useProductsWithStock from './useProductsWithStock';
+import { useContext, useEffect, useState } from 'react';
 
-function useProductSearch(product) {
-  const [searchResult, setSearchResult] = useState([]);
-  const [totalDocuments, setTotalDocuments] = useState();
-  useProductsWithStock({
-    products: searchResult,
-    totalProducts: totalDocuments,
-  });
-  const { dispatch } = useContext(Store);
-  const lastSearch = useRef('');
-  const searchProduct = useCallback(
-    async (productToSearch) => {
-      try {
-        const response = await fetch(
-          `/api/products/search?product=${productToSearch}`
-        );
-        if (response.status > 399) {
-          dispatch({
-            type: 'SET_ERROR',
-            payload: 'Something went wrong',
-          });
-          return { result: [], documents: 0 };
-        } else {
-          dispatch({
-            type: 'RESET_ERROR',
-          });
-        }
-        const { result, documents } = await response.json();
-
-        return { result, documents };
-      } catch (e) {
-        return e;
-      }
-    },
-    [dispatch]
-  );
+function useProductSearch({ page = 1, limit = 10 }) {
+  const { state } = useContext(Store);
+  const { productsInitialState, totalProductsInitialState, productToSearch } =
+    state;
+  const [productsFound, setProductsFound] = useState([]);
+  const [totalProductsFound, setTotalProductsFound] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (lastSearch.current !== product) {
-      searchProduct(product).then((response) => {
-        setSearchResult(response.result);
-        setTotalDocuments(response.documents);
-      });
-      lastSearch.current = product;
-    }
-  }, [product, searchProduct]);
+    // initialize state
+    setProductsFound(productsInitialState);
+    setTotalProductsFound(totalProductsInitialState);
+  }, [productsInitialState, totalProductsInitialState]);
 
-  return { productsWhitStock: searchResult };
+  useEffect(() => {
+    // Search handler
+    let ignoreSearch = false;
+    setLoading(true);
+
+    const searchProduct = async () => {
+      try {
+        const response = await fetch(
+          `/api/products/search?product=${productToSearch}&page=${page}&limit=${limit}`
+        );
+        if (response.status > 399) {
+          return setError('Sorry, something went wrong, try again later');
+        }
+        setError('');
+
+        if (!ignoreSearch) {
+          const { result, documents } = await response.json();
+          setTotalProductsFound(documents);
+          if (page === 1) {
+            setProductsFound(result);
+          } else {
+            setProductsFound((productsFound) => [...productsFound, ...result]);
+          }
+        }
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    searchProduct();
+
+    return () => {
+      ignoreSearch = true;
+    };
+  }, [productToSearch, page, limit, productsInitialState]);
+
+  return {
+    productsFound,
+    loading,
+    totalProductsFound,
+    error,
+  };
 }
 
 export default useProductSearch;

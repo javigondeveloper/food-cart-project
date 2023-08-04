@@ -2,13 +2,13 @@ import Link from 'next/link';
 import useCart from '@/hooks/useCart';
 import formatNumber from '@/utils/formatNumber';
 
-export default function ProductItem({ product }) {
+export default function ProductItem({ product, productRef }) {
   const { addItemToCart } = useCart(product);
 
   return (
-    <div className="card productCard relative">
+    <div className="card productCard relative" ref={productRef}>
       {/* SOLD OUT BANNER */}
-      <div className={product.stockAvailable > 0 ? 'invisible' : 'visible'}>
+      <div className={product.stock > 0 ? 'invisible' : 'visible'}>
         <div className="absolute top-[40%] left-[25%] z-10 h-[70px] w-[200px] border-4 border-red-700 rounded-lg text-red-700 text-4xl text-center leading-[70px] align-middle -rotate-45">
           SOLD OUT
         </div>
@@ -16,7 +16,7 @@ export default function ProductItem({ product }) {
 
       <div
         className={`h-full flex flex-col ${
-          product.stockAvailable > 0 ? '' : 'pointer-events-none opacity-60'
+          product.stock > 0 ? '' : 'pointer-events-none opacity-60'
         }`}
       >
         <div className=" relative  w-full h-2/3 max-h-[240px] flex justify-center items-center bg-white rounded-lg">

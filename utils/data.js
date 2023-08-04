@@ -15,6 +15,7 @@ const data = {
       stock: 1,
       price: 2.0,
       currency: 'EUR',
+      order: 1,
     },
     {
       name: ' packaged fresh chicken',
@@ -26,9 +27,10 @@ const data = {
       image: '/images/chicken.jfif',
       rating: 4.4,
       reviews: 8,
-      stock: 10,
+      stock: 0,
       price: 1.5,
       currency: 'EUR',
+      order: 2,
     },
     {
       name: 'bottled milk',
@@ -43,6 +45,7 @@ const data = {
       stock: 15,
       price: 2.5,
       currency: 'EUR',
+      order: 3,
     },
     {
       name: 'orange juice',
@@ -57,6 +60,7 @@ const data = {
       stock: 11,
       price: 1.2,
       currency: 'EUR',
+      order: 4,
     },
     {
       name: 'red wine',
@@ -71,6 +75,7 @@ const data = {
       stock: 20,
       price: 4.0,
       currency: 'EUR',
+      order: 5,
     },
     {
       name: 'white wine',
@@ -85,6 +90,7 @@ const data = {
       stock: 20,
       price: 4.0,
       currency: 'EUR',
+      order: 6,
     },
 
     {
@@ -100,6 +106,7 @@ const data = {
       stock: 20,
       price: 2.0,
       currency: 'EUR',
+      order: 7,
     },
     {
       name: 'banana',
@@ -114,6 +121,7 @@ const data = {
       stock: 20,
       price: 2.0,
       currency: 'EUR',
+      order: 8,
     },
     {
       name: 'butter',
@@ -128,6 +136,7 @@ const data = {
       stock: 10,
       price: 4.0,
       currency: 'EUR',
+      order: 9,
     },
     {
       name: 'chocolate',
@@ -142,6 +151,7 @@ const data = {
       stock: 20,
       price: 4.0,
       currency: 'EUR',
+      order: 10,
     },
     {
       name: 'white chocolate',
@@ -156,6 +166,7 @@ const data = {
       stock: 20,
       price: 2.5,
       currency: 'EUR',
+      order: 11,
     },
     {
       name: 'croissants',
@@ -170,6 +181,7 @@ const data = {
       stock: 20,
       price: 4.0,
       currency: 'EUR',
+      order: 12,
     },
     {
       name: 'tomato',
@@ -184,6 +196,7 @@ const data = {
       stock: 20,
       price: 4.0,
       currency: 'EUR',
+      order: 13,
     },
   ],
   users: [

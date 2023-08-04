@@ -21,6 +21,7 @@ const createFakeProducts = ({ start, quantity }) => {
       stock: 20,
       price: 4.0,
       currency: 'EUR',
+      order: i,
     });
   }
   return newProducs;

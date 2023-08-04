@@ -6,9 +6,8 @@ import { useSession } from 'next-auth/react';
 import 'react-toastify/dist/ReactToastify.css';
 import { Store } from '@/store';
 import MenuBox from './MenuBox';
-import SearchIcon from './icons/SearchIcon';
-import useProductSearch from '@/hooks/useProductSearch';
 import { useRouter } from 'next/router';
+import ProductToSearchInput from './ProductToSearchInput';
 
 export default function Layout({ title, children }) {
   const { status, data: session } = useSession();
@@ -17,16 +16,10 @@ export default function Layout({ title, children }) {
   const { state } = useContext(Store);
   const { cart } = state;
   const [cartItemsCount, setCartItemsCount] = useState(0);
-  const [searchInput, setSearchInput] = useState('');
-  useProductSearch(searchInput);
 
   useEffect(() => {
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   }, [cart.cartItems]);
-
-  const handleChangeSearchInput = (event) => {
-    setSearchInput(event.target.value);
-  };
 
   return (
     <>
@@ -44,19 +37,7 @@ export default function Layout({ title, children }) {
             </Link>
 
             {/* search input */}
-            {router.pathname === '/' && (
-              <div className="flex shrink gap-1 min-w-[140px]  border rounded-md items-center">
-                <input
-                  type="text"
-                  className="w-full focus:ring-0 border-none"
-                  placeholder="search product"
-                  name="searchInput"
-                  value={searchInput}
-                  onChange={handleChangeSearchInput}
-                />
-                <SearchIcon className="w-[1.5rem] h-[1.5rem] mr-2 fill-blue-600" />
-              </div>
-            )}
+            {router.pathname === '/' && <ProductToSearchInput />}
 
             {/* cart menu item */}
             <div className="flex items-center">

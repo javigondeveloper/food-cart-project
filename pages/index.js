@@ -1,18 +1,26 @@
 import Layout from '@/components/Layout';
 import ProductList from '@/components/ProductList';
-import useProductsWithStock from '@/hooks/useProductsWithStock';
 import Product from '@/models/Product';
+import { Store } from '@/store';
 import db from '@/utils/db';
+import { useContext, useEffect } from 'react';
 
-export default function Home({ totalProducts, products }) {
-  const { productsAvailables, error } = useProductsWithStock({
-    products,
-    totalProducts,
-  });
+export default function Home({ totalProductsInDB, productsInDB }) {
+  const { dispatch } = useContext(Store);
+
+  useEffect(() => {
+    dispatch({
+      type: 'SET_PRODUCTS_INITIAL_STATE',
+      payload: {
+        productsInitialState: productsInDB,
+        totalProductsInitialState: totalProductsInDB,
+      },
+    });
+  }, [dispatch, productsInDB, totalProductsInDB]);
 
   return (
     <Layout title="Home Page">
-      {error ? <h2>{error}</h2> : <ProductList products={productsAvailables} />}
+      <ProductList />
     </Layout>
   );
 }
@@ -22,12 +30,12 @@ export async function getServerSideProps() {
   const products = await Product.find({ stock: { $gt: 0 } })
     .limit(10)
     .lean(); //lean fetch only the product data with no metadata (plane old js objects - POJOs)
-  const totalProducts = await Product.countDocuments();
+  const totalProductsInDB = await Product.countDocuments({ stock: { $gt: 0 } });
   db.disconnect();
   return {
     props: {
-      totalProducts,
-      products: products.map(db.convertDocToObj),
+      totalProductsInDB,
+      productsInDB: products.map(db.convertDocToObj),
     },
   };
 }

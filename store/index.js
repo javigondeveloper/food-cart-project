@@ -4,7 +4,8 @@ import Cookies from 'js-cookie';
 export const Store = createContext();
 
 const initialState = {
-  productsAvailables: [],
+  productsInitialState: [],
+  totalProductsInitialState: 0,
   cart: Cookies.get('cart')
     ? JSON.parse(Cookies.get('cart'))
     : {
@@ -13,12 +14,19 @@ const initialState = {
         paymentMethod: '',
       },
   error: '',
+  productToSearch: '',
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'SET_PRODUCTS_AVAILABLES': {
-      return { ...state, productsAvailables: action.payload };
+    case 'SET_PRODUCTS_INITIAL_STATE': {
+      const { productsInitialState, totalProductsInitialState } =
+        action.payload;
+      return {
+        ...state,
+        productsInitialState,
+        totalProductsInitialState,
+      };
     }
     case 'CART_ADD_ITEM': {
       const newItem = action.payload;
@@ -122,6 +130,18 @@ function reducer(state, action) {
       return {
         ...state,
         error: '',
+      };
+    }
+    case 'SET_PRODUCT_TO_SEARCH': {
+      return {
+        ...state,
+        productToSearch: action.payload,
+      };
+    }
+    case 'RESET_PRODUCT_TO_SEARCH': {
+      return {
+        ...state,
+        productToSearch: '',
       };
     }
     default:
