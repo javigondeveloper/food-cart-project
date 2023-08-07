@@ -1,5 +1,6 @@
 import ProductItem from './ProductItem';
 import usePagination from '@/hooks/usePagination';
+import ScrollToTopButton from './ScrollToTopButton';
 
 function ProductList() {
   const { productsFound, loading, error, lastElementRef } = usePagination();
@@ -24,9 +25,18 @@ function ProductList() {
             }
           })
         )}
+        <ScrollToTopButton />
       </div>
-      <div className="text-center">{loading && <h2>Loading...</h2>}</div>
-      <div className="text-center">{error && <h2>{error}</h2>}</div>
+      {loading && (
+        <div className="text-center">
+          <h2>Loading...</h2>
+        </div>
+      )}
+      {error && (
+        <div className="text-center">
+          <h2>{error}</h2>
+        </div>
+      )}
     </>
   );
 }

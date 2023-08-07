@@ -9,7 +9,6 @@ export default function usePagination({ limit = 10 } = {}) {
   const { productsFound, loading, totalProductsFound, error } =
     useProductSearch({ page, limit });
   const lastElementRef = useRef();
-  const lastSearch = useRef('');
   const hasMorePages = totalProductsFound > productsFound.length;
 
   const scrollToTop = () =>
@@ -20,18 +19,16 @@ export default function usePagination({ limit = 10 } = {}) {
     });
 
   useEffect(() => {
-    // reset page when the search input has changed
-    if (lastSearch.current !== productToSearch) {
-      setPage(1);
-      scrollToTop();
-      lastSearch.current = productToSearch;
-    }
+    // reset page nr and scroll position when
+    // input search has changed
+    setPage(1);
+    scrollToTop();
   }, [productToSearch]);
 
   useEffect(() => {
     // Pagination handler
     const observerHandler = (entries) => {
-      if (loading) {
+      if (loading || error) {
         return;
       }
 
