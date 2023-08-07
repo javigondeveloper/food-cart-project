@@ -22,6 +22,7 @@ There is another screen with the order's history of the user
 - Creation of order
 - compsumption of PayPal API
 - Errors management
+- Lazy Loading
 
 ## Techologies used
 
