@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is my first project with the technology Next Js, taking advantage of the <b>Server Side Rendering</b> like increasing the loading speed, avoid the SEO problems of React
+This is my first project with the technology Next Js, taking advantage of the <b>Server Side Rendering</b> like increasing the loading speed, avoid the SEO problems of React.
 
 ## About the project
 
